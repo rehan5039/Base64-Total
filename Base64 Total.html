@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Base64 Encoder/Decoder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+    
+    body {
+    overflow: hidden;
+    touch-action: none;
+}
+      body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.text {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.textInput {
+    width: 90%;
+    height: 150px; /* Adjust height for textarea */
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    overflow: auto; /* Allow scrolling for long content */
+}
+
+.button {
+    width: 90%;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.2rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.button:last-child {
+    background-color: #dc3545;
+}
+
+.button:last-child:hover {
+    background-color: #c82333;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.button {
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.button:hover {
+    transform: scale(1.05);
+}
+
+.container {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.textInput {
+    width: calc(100% - 22px);
+}
+
+.button {
+    width: 100%;
+}
+
+.button:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.button {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.alert {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.alert.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.button {
+    border-radius: 20px; /* Adjust button curvature */
+}
+
+.button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+    transform: translateY(0) scale(0.95);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    animation: fadeInDown 0.5s ease-out; /* Apply fade-in animation to container */
+}
+.button.open-file {
+    width: auto;
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    right: 20px;
+    bottom: 0px; /* Adjusted value */
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text">Base64 Encoder/Decoder</h1>
+        <textarea id="textInput" class="textInput" placeholder="Input text here"></textarea>
+        <button class="button" onclick="encrypt()">Encrypt</button>
+        <button class="button" onclick="decrypt()">Decrypt</button>
+        <button class="button" onclick="clearText()">Clear</button>
+        <button class="button" onclick="copyToClipboard()">Copy to Clipboard</button>
+    </div>
+<button class="button open-file" onclick="openFile()">Base64 Image</button>
+<script>
+// Listen for keyboard open event
+window.addEventListener('resize', function() {
+    // Check if the keyboard is open
+    if(window.innerHeight < window.outerHeight) {
+        // If keyboard is open, move the button to the top
+        document.querySelector('.button.open-file').style.bottom = 'auto';
+        document.querySelector('.button.open-file').style.top = '50px'; // Adjusted value
+    } else {
+        // If keyboard is closed, move the button back to its original position
+        document.querySelector('.button.open-file').style.top = 'auto';
+        document.querySelector('.button.open-file').style.bottom = '650px'; // Adjusted value
+    }
+});
+
+
+
+    function openFile() {
+        window.open('Base64 Image.html', '_blank');
+    }
+</script>
+    <script>
+        function encrypt() {
+            var input = document.getElementById('textInput');
+            var text = input.value;
+            var encryptedText = window.btoa(text);
+            input.value = encryptedText;
+            alert(encryptedText, "Text to Base64");
+        }
+
+        function decrypt() {
+            var input = document.getElementById('textInput');
+            var text = input.value;
+            var decryptedText = window.atob(text);
+            input.value = decryptedText;
+            alert(decryptedText, "Base64 to Text");
+        }
+
+        function clearText() {
+            var input = document.getElementById('textInput');
+            input.value = "";
+        }
+
+        function copyToClipboard() {
+            var input = document.getElementById('textInput');
+            input.select();
+            document.execCommand("copy");
+            alert("Text copied to clipboard");
+        }
+    </script>
+</body>
+</html>

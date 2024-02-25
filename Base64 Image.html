@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base64 Image Encoder/Decoder</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0; /* Set background color */
+  }
+  textarea {
+    width: calc(100% - 20px); /* Adjusting width to accommodate padding */
+    height: 100px;
+    margin-bottom: 10px;
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #ccc; /* Add border */
+    padding: 10px; /* Add padding */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px; /* Adding bottom margin between buttons */
+    border-radius: 5px; /* Rounded corners */
+    border: none; /* Remove border */
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    transition: background-color 0.3s ease; /* Add transition for smoother hover effect */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+  }
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  #imagePreview {
+    margin-top: 20px;
+    max-width: 100%;
+  }
+  #imagePreview img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px; /* Rounded corners for images */
+  }
+  .button-group {
+    margin-top: 10px; /* Adding margin between buttons and textarea */
+    display: flex;
+    flex-wrap: wrap; /* Allowing buttons to wrap to the next line if needed */
+  }
+  h1 {
+    color: #333; /* Heading color */
+  }
+  
+  
+  
+  
+  a {
+  color: #007bff; /* Default link color */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+a:hover {
+  color: #0056b3; /* Hover link color */
+}
+.button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.button:hover {
+  background-color: #0056b3;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+body {
+  transition: background-color 0.5s ease;
+}
+.box {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+h1, h2, h3 {
+  color: #333;
+  font-weight: bold;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.item {
+  flex: 1 1 30%; /* Flex-grow, Flex-shrink, Flex-basis */
+  margin-bottom: 20px;
+}
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+.dropdown {
+  position: relative;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  background-color: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  appearance: none;
+}
+input[type="checkbox"]::before,
+input[type="radio"]::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+input[type="checkbox"]:checked::before,
+input[type="radio"]:checked::before {
+  background-color: #007bff;
+}
+.neumorphism {
+  background: #f0f0f0;
+  box-shadow: -10px -10px 20px #ffffff, 10px 10px 20px #d9d9d9;
+  border-radius: 10px;
+  padding: 20px;
+}
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+body {
+  animation: gradientAnimation 10s ease infinite;
+  background: linear-gradient(45deg, #ff7300, #ff3860, #7dff7d, #00c6ff);
+  background-size: 400% 400%;
+}
+.header {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1000;
+}
+.header {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1000;
+}
+.box {
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  padding: 20px;
+}
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideInLeft 0.5s forwards;
+}
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.zoom-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: zoomIn 0.5s forwards;
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.zoom-in {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: zoomIn 0.5s forwards;
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.rotate {
+  transform-origin: center;
+  animation: rotate 1s infinite linear;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.pulse {
+  animation: pulse 1s infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.bounce {
+  animation: bounce 1s infinite;
+}
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+.fade-in-down {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: fadeInDown 0.5s forwards;
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.shake {
+  animation: shake 0.5s infinite;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.flip {
+  animation: flip 1s infinite;
+}
+@keyframes flip {
+  0% {
+    transform: perspective(400px) rotateY(0);
+  }
+  100% {
+    transform: perspective(400px) rotateY(360deg);
+  }
+}
+.swing {
+  transform-origin: top center;
+  animation: swing 1s infinite;
+}
+@keyframes swing {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(-15deg);
+  }
+}
+.spin {
+  animation: spin 1s infinite linear;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.scale-up {
+  animation: scaleUp 0.5s forwards;
+}
+@keyframes scaleUp {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.drop-down {
+  animation: dropDown 0.5s forwards;
+}
+@keyframes dropDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.fade-in-up {
+  animation: fadeInUp 0.5s forwards;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.slide-in-right {
+  animation: slideInRight 0.5s forwards;
+}
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.blink {
+  animation: blink 1s infinite alternate;
+}
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.pulse-grow {
+  animation: pulseGrow 1s infinite alternate;
+}
+@keyframes pulseGrow {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+.rotate-scale {
+  animation: rotateScale 1s infinite alternate;
+}
+@keyframes rotateScale {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  to {
+    transform: rotate(360deg) scale(1.2);
+  }
+}
+.fade-in-down-big {
+  animation: fadeInDownBig 0.5s forwards;
+}
+@keyframes fadeInDownBig {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in-left {
+  animation: fadeInLeft 0.5s forwards;
+}
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.rotate-scale-down {
+  animation: rotateScaleDown 1s infinite alternate;
+}
+@keyframes rotateScaleDown {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  to {
+    transform: rotate(-360deg) scale(0.8);
+  }
+}
+.bounce-in {
+  animation: bounceIn 0.5s forwards;
+}
+@keyframes bounceIn {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-out-right {
+  animation: fadeOutRight 0.5s forwards;
+}
+@keyframes fadeOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+}
+.swing-in {
+  animation: swingIn 0.5s forwards;
+}
+@keyframes swingIn {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+}
+.slide-up {
+  animation: slideUp 0.5s forwards;
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.zoom-out {
+  animation: zoomOut 0.5s forwards;
+}
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+.shake-horizontal {
+  animation: shakeHorizontal 0.5s infinite alternate;
+}
+@keyframes shakeHorizontal {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(5px);
+  }
+}
+.flip-horizontal {
+  animation: flipHorizontal 1s infinite alternate;
+}
+@keyframes flipHorizontal {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(-1);
+  }
+}
+.fade-out-up {
+  animation: fadeOutUp 0.5s forwards;
+}
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  color: white;
+}
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.navbar li {
+  margin-right: 20px;
+}
+.navbar a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.navbar a:hover {
+  color: #007bff;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 60px;
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.tabs {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+.tab {
+  margin-right: 10px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}
+.tab.active {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+.accordion {
+  background-color: #f0f0f0;
+  margin: 10px 0;
+}
+.accordion .accordion-header {
+  background-color: #ddd;
+  padding: 10px;
+  cursor: pointer;
+}
+.accordion .accordion-panel {
+  display: none;
+  padding: 10px;
+}
+.accordion .active .accordion-panel {
+  display: block;
+}
+</style>
+</head>
+<body>
+  <h1>Base64 Image Encoder/Decoder</h1>
+  <div class="button-group">
+    <button onclick="openImageInput()">Import Image</button>
+    <button onclick="encodeImage()">Encode</button>
+    <button onclick="copyText()">Copy Text</button>
+    <button onclick="decodeImage()">Decode</button>
+    <button onclick="clearInput()">Clear</button>
+    <button id="downloadButton" onclick="downloadImage()" style="display: none;">Download Image</button>
+  </div>
+  <input type="file" id="imageInput" accept="image/*" style="display: none;">
+  <textarea id="textInput" placeholder="Enter image URL or Base64 code..."></textarea>
+  <div id="imagePreview"></div>
+
+  <script>
+    function openImageInput() {
+      document.getElementById('imageInput').click();
+    }
+
+    function encodeImage() {
+      const input = document.getElementById('textInput').value;
+      if (input) {
+        if (input.startsWith('data:image')) {
+          alert('Already an image.');
+          return;
+        }
+        const image = new Image();
+        image.onload = function() {
+          const canvas = document.createElement('canvas');
+          canvas.width = this.naturalWidth;
+          canvas.height = this.naturalHeight;
+          canvas.getContext('2d').drawImage(this, 0, 0);
+          const base64 = canvas.toDataURL('image/jpeg');
+          document.getElementById('textInput').value = base64;
+        };
+        image.src = input.startsWith('data:') ? input : 'data:image/jpeg;base64,' + input;
+      }
+    }
+
+    function decodeImage() {
+      const input = document.getElementById('textInput').value;
+      if (input.startsWith('data:image')) {
+        document.getElementById('imagePreview').innerHTML = `<img src="${input}" alt="Decoded Image">`;
+        document.getElementById('downloadButton').style.display = 'block'; // Show the download button
+      } else {
+        alert('Please enter a valid Base64 encoded image.');
+      }
+    }
+
+    function clearInput() {
+      document.getElementById('textInput').value = '';
+      document.getElementById('imagePreview').innerHTML = '';
+      document.getElementById('downloadButton').style.display = 'none'; // Hide the download button
+    }
+
+    function copyText() {
+      const textInput = document.getElementById('textInput');
+      textInput.select();
+      document.execCommand('copy');
+      alert('Text copied to clipboard.');
+    }
+
+    function downloadImage() {
+      const imgSrc = document.getElementById('imagePreview').querySelector('img').src;
+      const link = document.createElement('a');
+      link.href = imgSrc;
+      link.download = 'image.jpg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    document.getElementById('imageInput').addEventListener('change', function() {
+      const file = this.files[0];
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        document.getElementById('textInput').value = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+    function resizeImage(width, height) {
+  const imgPreview = document.getElementById('imagePreview').querySelector('img');
+  imgPreview.style.width = width + 'px';
+  imgPreview.style.height = height + 'px';
+}
+function toggleDownloadButton(show) {
+  const downloadButton = document.getElementById('downloadButton');
+  downloadButton.style.display = show ? 'block' : 'none';
+}
+function validateImageSize(maxSizeInBytes) {
+  const fileInput = document.getElementById('imageInput');
+  const file = fileInput.files[0];
+  if (file.size > maxSizeInBytes) {
+    showError('Image size exceeds the maximum allowed size.');
+    fileInput.value = ''; // Clear the file input
+  }
+}
+document.getElementById('textInput').addEventListener('input', encodeDecodeRealTime);
+document.getElementById('imageInput').addEventListener('change', encodeDecodeRealTime);
+
+function encodeDecodeRealTime() {
+  // Perform encoding/decoding logic here
+}
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => alert('Text copied to clipboard'))
+    .catch(err => console.error('Failed to copy text: ', err));
+}
+function encodeImage() {
+  const input = document.getElementById('textInput').value;
+  if (input) {
+    if (input.startsWith('data:image')) {
+      alert('Already an image.');
+      return;
+    }
+
+    const image = new Image();
+    image.onload = function() {
+      const canvas = document.createElement('canvas');
+      canvas.width = this.naturalWidth;
+      canvas.height = this.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(this, 0, 0);
+
+      let base64;
+      // Check the file type and encode accordingly
+      if (input.toLowerCase().endsWith('.png')) {
+        base64 = canvas.toDataURL('image/png');
+      } else if (input.toLowerCase().endsWith('.gif')) {
+        base64 = canvas.toDataURL('image/gif');
+      } else {
+        base64 = canvas.toDataURL('image/jpeg');
+      }
+
+      document.getElementById('textInput').value = base64;
+    };
+    
+    image.src = input.startsWith('data:') ? input : URL.createObjectURL(input);
+  }
+}
+document.addEventListener('dragover', handleDragOver);
+document.addEventListener('drop', handleFileDrop);
+
+function handleFileDrop(event) {
+  event.preventDefault();
+  const file = event.dataTransfer.files[0];
+  // Process the dropped file
+}
+
+function handleDragOver(event) {
+  event.preventDefault();
+}
+
+// Inside the handleFileDrop function
+function handleFileDrop(event) {
+  event.preventDefault();
+  const file = event.dataTransfer.files[0];
+  // Detect file type
+  const fileType = file.type;
+  // Process the dropped file based on its type
+  if (fileType.includes('image/png')) {
+    // Handle PNG image
+    encodeImage(file, 'image/png');
+  } else if (fileType.includes('image/jpeg')) {
+    // Handle JPEG image
+    encodeImage(file, 'image/jpeg');
+  } else if (fileType.includes('image/gif')) {
+    // Handle GIF image
+    encodeImage(file, 'image/gif');
+  } else {
+    // Handle other file types or show an error message
+    showError('Unsupported file type. Please upload an image.');
+  }
+}
+// Inside the rotateImage function
+function rotateImage(degrees) {
+  const imgPreview = document.getElementById('imagePreview').querySelector('img');
+  imgPreview.style.transform = `rotate(${degrees}deg)`;
+}
+// Example usage:
+// rotateImage(90); // Rotate image by 90 degrees clockwise
+
+// Inside the addTextOverlay function
+function addTextOverlay(text, x, y, color, fontSize) {
+  const imgPreview = document.getElementById('imagePreview').querySelector('img');
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = imgPreview.width;
+  canvas.height = imgPreview.height;
+  ctx.drawImage(imgPreview, 0, 0);
+  ctx.font = `${fontSize}px Arial`;
+  ctx.fillStyle = color;
+  ctx.fillText(text, x, y);
+  const textOverlayBase64 = canvas.toDataURL('image/jpeg');
+  document.getElementById('textInput').value = textOverlayBase64;
+}
+  </script>
+</body>
+</html>
